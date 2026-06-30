@@ -1,0 +1,15 @@
+import { Navigate } from "react-router-dom";
+import useAuthStore from "../auth/store/auth.store";
+
+export default function PrivateRoute({ children }) {
+
+    const isAuthenticated = useAuthStore(
+        (state) => state.isAuthenticated
+    );
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return children;
+}

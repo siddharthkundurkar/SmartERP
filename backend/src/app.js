@@ -3,7 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-
+import authRoutes from "./modules/auth/auth.routes.js";
+import errorHandler from "./middlewares/error.middleware.js";
 const app = express();
 
 // ======================
@@ -40,7 +41,7 @@ app.get("/", (req, res) => {
 
 // app.use("/api/auth", authRoutes);
 // app.use("/api/company", companyRoutes);
-
+app.use("/api/auth", authRoutes);
 // ======================
 // 404 Handler
 // ======================
@@ -51,5 +52,5 @@ app.use((req, res) => {
         message: "Route Not Found"
     });
 });
-
+app.use(errorHandler);
 export default app;
